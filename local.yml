@@ -29,4 +29,12 @@
     become_user: chmazur
     dconf:
       key: "/org/gnome/desktop/background/picture-options"
-      value: "'zoom'"    
+      value: "'zoom'"
+
+  - name: copy .bashrc file
+    copy:
+      src: files/bashrc
+      dest: /home/chmazur/.bashrc
+      owner: chmazur
+      group: chmazur
+
