@@ -22,7 +22,7 @@
     become_user: chmazur
     dconf:
       key: "/org/gnome/desktop/background/picture-uri"
-      value: "'file:///usr/share/backgrounds/ansible-wallpaper.jpg'"
+      value: "'file:///usr/share/backgrounds/ansible-bridge.jpg'"
 
   - name: set wallpaper position
     become_user: chmazur
