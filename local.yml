@@ -45,7 +45,21 @@
     command: 'code --install-extension {{item}}'
     loop:
       - ms-dotnettools.csharp
+      - vscode-icons-team.vscode-icons
+      - ms-mssql.mssql
+      - ms-azuretools.vscode-docker
+      - redhat.vscode-yaml
+      - vscoss.vscode-ansible
+      - ms-vscode.vscode-node-azure-pack
+      - ms-azuretools.vscode-azureappservice      
+      - eamodio.gitlens      
+      - github.vscode-pull-request-github
+      - golang.go
+      - ms-vscode-remote.remote-ssh
+      - msjsdiag.debugger-for-chrome      
       - esbenp.prettier-vscode
+      - dsznajder.es7-react-js-snippets
+      - ecmel.vscode-html-css
   
   - name: copy wallpaper file
     copy:
