@@ -11,7 +11,39 @@
         - tmux
         - vim-nox 
         - python3-psutil
+        
+  - name: install dependencies (apt)
+    become: yes
+    apt:
+      name:
+        - wget
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common        
+      state: present        
+      update_cache: yes
 
+  - name: install key (apt)
+    become: yes
+    apt_key:
+      url: 'https://packages.microsoft.com/keys/microsoft.asc'
+      state: present
+      
+  - name: install VS Code repo (apt)
+    become: yes
+    apt_repository:
+      repo: 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main'
+      filename: vscode
+      state: present    
+        
+  - name: Install VS Code (apt)
+    become: yes
+    apt:
+      name: code
+      state: latest
+      update_cache: yes
+  
   - name: copy wallpaper file
     copy:
       src: files/bridge.jpg
@@ -36,5 +68,5 @@
       src: files/bashrc
       dest: /home/chmazur/.bashrc
       owner: chmazur
-      group: chmazur
+      group: chmazur           
 
