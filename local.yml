@@ -4,86 +4,95 @@
   become: true
 
   tasks:
-  - name: install packages  
-    package:
-      name:
-        - htop
-        - tmux
-        - vim-nox 
-        - python3-psutil
-        - wget
-        - apt-transport-https
-        - ca-certificates
-        - curl
-        - software-properties-common        
-      state: present        
-      update_cache: yes
+    - name: install packages
+      package:
+        name:
+          - htop
+          - tmux
+          - vim-nox
+          - python3-psutil
+          - wget
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+        update_cache: yes
 
-  - name: install key (apt)
-    become: yes
-    apt_key:
-      url: 'https://packages.microsoft.com/keys/microsoft.asc'
-      state: present
-      
-  - name: install VS Code repo (apt)
-    become: yes
-    apt_repository:
-      repo: 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main'
-      filename: vscode
-      state: present    
-        
-  - name: Install VS Code (apt)
-    become: yes
-    apt:
-      name: code
-      state: latest
-      update_cache: yes
-      
-  - name: Install extensions Visual Studio Code
-    become: yes
-    become_user: chmazur
-    command: 'code --install-extension {{item}}'
-    loop:
-      - ms-dotnettools.csharp
-      - vscode-icons-team.vscode-icons
-      - ms-mssql.mssql
-      - ms-azuretools.vscode-docker
-      - redhat.vscode-yaml
-      - vscoss.vscode-ansible
-      - ms-vscode.vscode-node-azure-pack
-      - ms-azuretools.vscode-azureappservice      
-      - eamodio.gitlens      
-      - github.vscode-pull-request-github
-      - golang.go
-      - ms-vscode-remote.remote-ssh
-      - msjsdiag.debugger-for-chrome      
-      - esbenp.prettier-vscode
-      - dsznajder.es7-react-js-snippets
-      - ecmel.vscode-html-css
-  
-  - name: copy wallpaper file
-    copy:
-      src: files/bridge.jpg
-      dest: /usr/share/backgrounds/ansible-bridge.jpg
-      owner: root
-      group: root
+# Install Applications
+    - name: install packages
+      package:
+        name:
+          - postman
+          - chromium
+        state: present
+        update_cache: yes
 
-  - name: set wallpaper
-    become_user: chmazur
-    dconf:
-      key: "/org/gnome/desktop/background/picture-uri"
-      value: "'file:///usr/share/backgrounds/ansible-bridge.jpg'"
+# Install Visual Studio Code
+    - name: install key (apt)
+      become: yes
+      apt_key:
+        url: "https://packages.microsoft.com/keys/microsoft.asc"
+        state: present
 
-  - name: set wallpaper position
-    become_user: chmazur
-    dconf:
-      key: "/org/gnome/desktop/background/picture-options"
-      value: "'zoom'"
+    - name: install VS Code repo (apt)
+      become: yes
+      apt_repository:
+        repo: "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+        filename: vscode
+        state: present
 
-  - name: copy .bashrc file
-    copy:
-      src: files/bashrc
-      dest: /home/chmazur/.bashrc
-      owner: chmazur
-      group: chmazur           
+    - name: Install VS Code (apt)
+      become: yes
+      apt:
+        name: code
+        state: latest
+        update_cache: yes
 
+    - name: Install extensions Visual Studio Code
+      become: yes
+      become_user: chmazur
+      command: "code --install-extension {{item}}"
+      loop:
+        - ms-dotnettools.csharp
+        - vscode-icons-team.vscode-icons
+        - ms-mssql.mssql
+        - ms-azuretools.vscode-docker
+        - redhat.vscode-yaml
+        - vscoss.vscode-ansible
+        - ms-vscode.vscode-node-azure-pack
+        - ms-azuretools.vscode-azureappservice
+        - eamodio.gitlens
+        - github.vscode-pull-request-github
+        - golang.go
+        - ms-vscode-remote.remote-ssh
+        - msjsdiag.debugger-for-chrome
+        - esbenp.prettier-vscode
+        - dsznajder.es7-react-js-snippets
+        - ecmel.vscode-html-css
+
+    # - name: copy wallpaper file
+    #   copy:
+    #     src: files/bridge.jpg
+    #     dest: /usr/share/backgrounds/ansible-bridge.jpg
+    #     owner: root
+    #     group: root
+
+    # - name: set wallpaper
+    #   become_user: chmazur
+    #   dconf:
+    #     key: "/org/gnome/desktop/background/picture-uri"
+    #     value: "'file:///usr/share/backgrounds/ansible-bridge.jpg'"
+
+    # - name: set wallpaper position
+    #   become_user: chmazur
+    #   dconf:
+    #     key: "/org/gnome/desktop/background/picture-options"
+    #     value: "'zoom'"
+
+    - name: copy .bashrc file
+      copy:
+        src: files/bashrc
+        dest: /home/chmazur/.bashrc
+        owner: chmazur
+        group: chmazur
