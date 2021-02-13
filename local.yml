@@ -25,8 +25,7 @@
         name:
           - postman
           - chromium
-        state: present
-        update_cache: yes
+        classic: yes
 
 # Install Visual Studio Code
     - name: install key (apt)
