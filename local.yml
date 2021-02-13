@@ -38,6 +38,16 @@
       name: code
       state: latest
       update_cache: yes
+      
+  - name: Install extensions Visual Studio Code
+    become: yes
+    become_user: chmazur
+    command: 'code --install-extension {{item}}'
+    changed_when: no
+    when: vscode_install.change
+    loop:
+      - ms-dotnettools.csharp
+      - esbenp.prettier-vscode
   
   - name: copy wallpaper file
     copy:
