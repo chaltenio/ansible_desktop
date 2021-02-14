@@ -25,21 +25,8 @@
         name:
           - postman
           - chromium
+          - filezilla
         classic: yes
-
-# Install Gimp
-
-    - name: Add GIMP package
-      become: yes
-      command: "add-apt-repository ppa:ubuntuhandbook1/gimp"
-
-    - name: Update packages
-      become: yes
-      command: "apt update"      
-
-    - name: Install Gimp
-      become: yes
-      command: "apt install gimp gimp-gmic"      
 
 # Install Visual Studio Code
     - name: install key (apt)
