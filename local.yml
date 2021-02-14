@@ -27,6 +27,20 @@
           - chromium
         classic: yes
 
+# Install Gimp
+
+    - name: Purge packages
+      become: yes
+      command: "sudo apt install ppa-purge && sudo ppa-purge ppa:otto-kesselgulasch/gimp"
+
+    - name: Add GIMP package
+      become: yes
+      command: "sudo add-apt-repository ppa:ubuntuhandbook1/gimp"
+
+    - name: Install Gimp
+      become: yes
+      command: "sudo apt install gimp gimp-gmic"      
+
 # Install Visual Studio Code
     - name: install key (apt)
       become: yes
