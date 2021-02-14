@@ -14,6 +14,7 @@
           - wget
           - apt-transport-https
           - ca-certificates
+          - gnupg-agent
           - curl
           - software-properties-common
           - filezilla          
@@ -70,6 +71,27 @@
         - esbenp.prettier-vscode
         - dsznajder.es7-react-js-snippets
         - ecmel.vscode-html-css
+
+# Install Docker
+    - name: Adding GPG
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+            
+    - name: Adding repository Docker
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+        state: present
+            
+    - name: install Docker
+      apt:
+        name: "{{item}}"
+        state: latest
+        update_cache: yes
+        loop:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
 
     # - name: copy wallpaper file
     #   copy:
