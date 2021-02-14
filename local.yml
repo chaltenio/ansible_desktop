@@ -29,13 +29,13 @@
 
 # Install Gimp
 
-    - name: Purge packages
-      become: yes
-      command: "apt install ppa-purge && ppa-purge ppa:otto-kesselgulasch/gimp"
-
     - name: Add GIMP package
       become: yes
       command: "add-apt-repository ppa:ubuntuhandbook1/gimp"
+
+    - name: Update packages
+      become: yes
+      command: "apt update"      
 
     - name: Install Gimp
       become: yes
