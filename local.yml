@@ -4,7 +4,7 @@
   become: true
 
   tasks:
-    - name: install packages
+    - name: install packages & Applications
       package:
         name:
           - htop
@@ -16,6 +16,7 @@
           - ca-certificates
           - curl
           - software-properties-common
+          - filezilla          
         state: present
         update_cache: yes
 
@@ -25,7 +26,6 @@
         name:
           - postman
           - chromium
-          - filezilla
         classic: yes
 
 # Install Visual Studio Code
