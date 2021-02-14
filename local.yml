@@ -17,11 +17,11 @@
           - gnupg-agent
           - curl
           - software-properties-common
-          - filezilla          
+          - filezilla
         state: present
         update_cache: yes
 
-# Install Applications
+    # Install Applications
     - name: install application with snap
       snap:
         name:
@@ -29,7 +29,7 @@
           - chromium
         classic: yes
 
-# Install Visual Studio Code
+    # Install Visual Studio Code
     - name: install key (apt)
       become: yes
       apt_key:
@@ -72,17 +72,17 @@
         - dsznajder.es7-react-js-snippets
         - ecmel.vscode-html-css
 
-# Install Docker
+    # Install Docker
     - name: Adding GPG
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
-            
+
     - name: Adding repository Docker
       apt_repository:
         repo: deb https://download.docker.com/linux/ubuntu bionic stable
         state: present
-            
+
     - name: install Docker
       apt:
         name: "{{item}}"
