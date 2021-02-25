@@ -30,7 +30,7 @@
         classic: yes
 
     # Install Visual Studio Code
-    - name: install key (apt)
+    - name: install key MS (apt)
       become: yes
       apt_key:
         url: "https://packages.microsoft.com/keys/microsoft.asc"
@@ -72,6 +72,24 @@
         - dsznajder.es7-react-js-snippets
         - ecmel.vscode-html-css
 
+  # Install dotnet 5
+    - name: Download MS product repository
+      get_url:
+        url: https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+        dest: /tmp/packages-microsoft-prod.deb
+    - name: Add the package repository
+      become: yes
+      command: "sudo dpkg -i /tmp/packages-microsoft-prod.deb"        
+    - name: Install MS product repository
+      apt: deb=/tmp/packages-microsoft-prod.deb
+      become: yes
+    - name: Install .NET Core SDK
+      apt:
+        name: dotnet-sdk-5.0
+        state: present
+        update_cache: yes
+      become: yes
+
     # Install Docker
     - name: Adding GPG
       apt_key:
@@ -111,23 +129,6 @@
     #   dconf:
     #     key: "/org/gnome/desktop/background/picture-options"
     #     value: "'zoom'"
-
-    - name: Download MS product repository
-      get_url:
-        url: https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
-        dest: /tmp/packages-microsoft-prod.deb
-    - name: Add the package repository
-      become: yes
-      command: "sudo dpkg -i /tmp/packages-microsoft-prod.deb"        
-    - name: Install MS product repository
-      apt: deb=/tmp/packages-microsoft-prod.deb
-      become: yes
-    - name: Install .NET Core SDK
-      apt:
-        name: dotnet-sdk-5.0
-        state: present
-        update_cache: yes
-      become: yes
 
     - name: copy .bashrc file
       copy:
