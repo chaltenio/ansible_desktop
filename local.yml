@@ -18,7 +18,6 @@
           - curl
           - software-properties-common
           - filezilla
-          - dotnet-sdk
         state: present
         update_cache: yes
 
@@ -28,7 +27,6 @@
         name:
           - postman
           - chromium
-          - dotnet-sdk
         classic: yes
 
     # Install Visual Studio Code
@@ -113,6 +111,23 @@
     #   dconf:
     #     key: "/org/gnome/desktop/background/picture-options"
     #     value: "'zoom'"
+
+    - name: Download MS product repository
+      get_url:
+        url: https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+        dest: /tmp/packages-microsoft-prod.deb
+    - name: Add the package repository
+      become: yes
+      command: "sudo dpkg -i /tmp/packages-microsoft-prod.deb"        
+    - name: Install MS product repository
+      apt: deb=/tmp/packages-microsoft-prod.deb
+      become: yes
+    - name: Install .NET Core SDK
+      apt:
+        name: dotnet-sdk-5.0
+        state: present
+        update_cache: yes
+      become: yes
 
     - name: copy .bashrc file
       copy:
