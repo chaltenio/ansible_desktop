@@ -79,7 +79,7 @@
         dest: /tmp/packages-microsoft-prod.deb
     - name: Add the package repository
       become: yes
-      command: "sudo dpkg -i /tmp/packages-microsoft-prod.deb"        
+      command: "dpkg -i /tmp/packages-microsoft-prod.deb"        
     - name: Install MS product repository
       apt: deb=/tmp/packages-microsoft-prod.deb
       become: yes
@@ -92,6 +92,7 @@
 
     # Install Docker
     - name: Adding GPG
+      become: yes
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
@@ -102,6 +103,7 @@
         state: present
 
     - name: install Docker
+      become: yes
       apt:
         name: "{{item}}"
         state: latest
