@@ -28,7 +28,6 @@
           - postman
           - chromium
           - docker
-          - docker-cli
         classic: yes
 
     # Install Visual Studio Code
