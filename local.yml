@@ -27,6 +27,8 @@
         name:
           - postman
           - chromium
+          - docker
+          - docker-cli
         classic: yes
 
     # Install Visual Studio Code
@@ -101,36 +103,6 @@
       apt_repository:
         repo: deb https://download.docker.com/linux/ubuntu bionic stable
         state: present
-
-    - name: install Docker
-      become: yes
-      snap:
-        name: "{{item}}"
-        state: latest
-        update_cache: yes
-        loop:
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-
-    # - name: copy wallpaper file
-    #   copy:
-    #     src: files/bridge.jpg
-    #     dest: /usr/share/backgrounds/ansible-bridge.jpg
-    #     owner: root
-    #     group: root
-
-    # - name: set wallpaper
-    #   become_user: chmazur
-    #   dconf:
-    #     key: "/org/gnome/desktop/background/picture-uri"
-    #     value: "'file:///usr/share/backgrounds/ansible-bridge.jpg'"
-
-    # - name: set wallpaper position
-    #   become_user: chmazur
-    #   dconf:
-    #     key: "/org/gnome/desktop/background/picture-options"
-    #     value: "'zoom'"
 
     - name: copy .bashrc file
       copy:
