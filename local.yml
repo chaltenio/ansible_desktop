@@ -104,7 +104,7 @@
 
     - name: install Docker
       become: yes
-      apt:
+      snap:
         name: "{{item}}"
         state: latest
         update_cache: yes
