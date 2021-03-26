@@ -18,6 +18,7 @@
           - curl
           - software-properties-common
           - filezilla
+          - hardinfo
         state: present
         update_cache: yes
 
