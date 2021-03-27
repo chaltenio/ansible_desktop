@@ -29,6 +29,7 @@
           - postman
           - chromium
           - docker
+          - vlc
         classic: yes
 
     # Install Visual Studio Code
@@ -61,7 +62,6 @@
         - vscode-icons-team.vscode-icons
         - ms-mssql.mssql
         - ms-azuretools.vscode-docker
-        - redhat.vscode-yaml
         - vscoss.vscode-ansible
         - ms-vscode.vscode-node-azure-pack
         - ms-azuretools.vscode-azureappservice
