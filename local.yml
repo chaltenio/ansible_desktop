@@ -114,7 +114,11 @@
 
     - name: Add the package repository
       become: yes
-      command: "cd /tmp && apt install ./zoom_amd64.deb"            
+      command: "cd /tmp"            
+
+    - name: Add the package repository 2
+      become: yes
+      command: "apt install ./zoom_amd64.deb" 
 
   # Install Docker
     - name: Adding GPG
