@@ -99,7 +99,24 @@
         update_cache: yes
       become: yes
 
-    # Install Docker
+  # Install Zoom
+    - name: Download Zoom
+      get_url:
+        url: https://zoom.us/client/latest/zoom_amd64.deb
+        dest: /tmp/zoom_amd64.deb
+
+    - name: Install gdebi
+      become: yes
+      apt:
+        name: gdebi
+        state: latest
+        update_cache: yes
+
+    - name: Add the package repository
+      become: yes
+      command: "apt install /tmp/zoom_amd64.deb"            
+
+  # Install Docker
     - name: Adding GPG
       become: yes
       apt_key:
