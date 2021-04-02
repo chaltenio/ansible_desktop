@@ -7,7 +7,7 @@
     - name: Update and upgrade apt packages
       become: true
       apt:
-        upgrade: yes
+        upgrade: 'yes'
         update_cache: yes
         cache_valid_time: 86400 #one day
 
@@ -114,7 +114,7 @@
 
     - name: Add the package repository
       become: yes
-      command: "apt install /tmp/zoom_amd64.deb"            
+      command: "apt install ./tmp/zoom_amd64.deb"            
 
   # Install Docker
     - name: Adding GPG
