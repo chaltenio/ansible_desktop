@@ -1,6 +1,9 @@
 ---
 - hosts: localhost
   connection: local
+  vars:
+    terraform_version: 1.0.0
+    terraform_dir: "/opt/terraform"
   become: true
 
   tasks:
@@ -146,7 +149,7 @@
   #      group: chmazur
 
   # Install Terraform
-    - name: Create Terraform directory
+    - name: Create Terraform
       gather_facts: false
       file:
         path: "{{terraform_dir}}"
