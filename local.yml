@@ -121,29 +121,29 @@
       command: chdir=/tmp apt install ./zoom_amd64.deb
 
   # Install Docker
-    - name: Adding GPG
-      become: yes
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
+  #  - name: Adding GPG
+  #    become: yes
+  #    apt_key:
+  #      url: https://download.docker.com/linux/ubuntu/gpg
+  #      state: present
 
-    - name: Adding repository Docker
-      apt_repository:
-        repo: deb h[arch=amd64] https://download.docker.com/linux/ubuntu focal stable
-        state: present
+  #  - name: Adding repository Docker
+  #    apt_repository:
+  #      repo: deb h[arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+  #      state: present
 
-    - name: Update apt packages
-      become: true
-      apt:        
-        update_cache: yes
-        apt-cache policy docker-ce
+  #  - name: Update apt packages
+  #    become: true
+  #    apt:        
+  #      update_cache: yes
+  #      apt-cache policy docker-ce
 
-    - name: copy .bashrc file
-      copy:
-        src: files/bashrc
-        dest: /home/chmazur/.bashrc
-        owner: chmazur
-        group: chmazur
+  #  - name: copy .bashrc file
+  #    copy:
+  #      src: files/bashrc
+  #      dest: /home/chmazur/.bashrc
+  #      owner: chmazur
+  #      group: chmazur
 
   # Install Terraform
 
