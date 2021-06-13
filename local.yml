@@ -146,7 +146,6 @@
   #      group: chmazur
 
   # Install Terraform
-
     - name: Create Terraform directory
       gather_facts: false
       file:
