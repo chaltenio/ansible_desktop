@@ -153,6 +153,7 @@
         path: "{{terraform_dir}}"
         state: directory
       register: terraform_directory
+      become: yes
 
     - name: Check terraform version
       gather_facts: false
@@ -160,6 +161,7 @@
       failed_when: false
       changed_when: false
       register: terraform_versions_match
+      become: yes
 
     - name: Download terraform archive Linux 64 bits
       gather_facts: false
@@ -167,12 +169,14 @@
         url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
         dest: "{{ download_dir }}/{{ terraform_version }}.zip"
       when: terraform_versions_match.rc != 0
+      become: yes
 
     - name: Install unzip to unarchive terraform
       gather_facts: false
       package:
         name: unzip
         state: present
+      become: yes
 
     - name: Unarchive Terraform archive
       gather_facts: false
@@ -181,6 +185,7 @@
         dest: "{{terraform_dir}}"
         copy: no
       when: terraform_versions_match.rc != 0 or terraform_directory is changed
+      become: yes
 
     - name: Adding terraform command to user path
       gather_facts: false
@@ -188,3 +193,4 @@
         src: "{{terraform_dir}}/terraform"
         dest: /usr/bin/terraform
         state: link
+      become: yes        
