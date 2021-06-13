@@ -26,6 +26,7 @@
           - software-properties-common
           - filezilla
           - hardinfo
+          - net-tools
         state: present
         update_cache: yes
 
@@ -86,12 +87,15 @@
       get_url:
         url: https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
         dest: /tmp/packages-microsoft-prod.deb
+
     - name: Add the package repository
       become: yes
       command: "dpkg -i /tmp/packages-microsoft-prod.deb"        
+
     - name: Install MS product repository
       apt: deb=/tmp/packages-microsoft-prod.deb
       become: yes
+
     - name: Install .NET Core SDK
       apt:
         name: dotnet-sdk-5.0
@@ -125,8 +129,14 @@
 
     - name: Adding repository Docker
       apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+        repo: deb h[arch=amd64] https://download.docker.com/linux/ubuntu focal stable
         state: present
+
+    - name: Update apt packages
+      become: true
+      apt:        
+        update_cache: yes
+        apt-cache policy docker-ce
 
     - name: copy .bashrc file
       copy:
@@ -134,3 +144,47 @@
         dest: /home/chmazur/.bashrc
         owner: chmazur
         group: chmazur
+
+  # Install Terraform
+
+    - name: Create Terraform directory
+      gather_facts: false
+      file:
+        path: "{{terraform_dir}}"
+        state: directory
+      register: terraform_directory
+
+    - name: Check terraform version
+      gather_facts: false
+      shell: "terraform version 2>&1 | head -n 1 | grep -q {{terraform_version}}"
+      failed_when: false
+      changed_when: false
+      register: terraform_versions_match
+
+    - name: Download terraform archive Linux 64 bits
+      gather_facts: false
+      get_url:
+        url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
+        dest: "{{ download_dir }}/{{ terraform_version }}.zip"
+      when: terraform_versions_match.rc != 0
+
+    - name: Install unzip to unarchive terraform
+      gather_facts: false
+      package:
+        name: unzip
+        state: present
+
+    - name: Unarchive Terraform archive
+      gather_facts: false
+      unarchive:
+        src: "{{ download_dir }}/{{ terraform_version }}.zip"
+        dest: "{{terraform_dir}}"
+        copy: no
+      when: terraform_versions_match.rc != 0 or terraform_directory is changed
+
+    - name: Adding terraform command to user path
+      gather_facts: false
+      file:
+        src: "{{terraform_dir}}/terraform"
+        dest: /usr/bin/terraform
+        state: link
