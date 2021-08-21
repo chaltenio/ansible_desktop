@@ -101,6 +101,14 @@
       apt: deb=/tmp/packages-microsoft-prod.deb
       become: yes
 
+    - name: Add the package repository
+      become: yes
+      command: "rm /tmp/packages-microsoft-prod.deb"   
+
+    - name: Remove the package repository
+      become: yes
+      command: "rm /tmp/packages-microsoft-prod.deb"  
+
     - name: Install .NET Core SDK
       apt:
         name: dotnet-sdk-5.0
